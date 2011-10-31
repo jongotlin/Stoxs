@@ -2,20 +2,44 @@
 
 namespace Stoxs\Bundle\AppBundle\Entity\Auction;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
-* 
-*/
+ * @ORM\Entity
+ * @ORM\Table(name="auction")
+ */
 class Auction
 {
-  protected $bids = array();
-  protected $winning_bids = array();
+  /**
+   * @ORM\Id 
+   * @ORM\Column(type="integer")
+   * @ORM\GeneratedValue
+   */
+  protected $id;
 
+  /**
+   * @ORM\OneToMany(targetEntity="Bid", mappedBy="auction", cascade={"persist"})
+   */
+  protected $bids = array();
+
+  protected $winning_bids = array();
+  protected $winning_bids_calculated = false;
+
+  /**
+   * @ORM\Column(type="integer") 
+   */
   protected $winner_limit;
 
   protected $altered_at = 0;
 
+  /**
+   * @ORM\Column(type="integer") 
+   */
   protected $minimum_increment;
 
+  /**
+   * @ORM\OneToMany(targetEntity="BaseAgent", mappedBy="auction", cascade={"persist"})
+   */
   protected $agents;
 
   public function __construct($winner_limit, $minimum_increment)
@@ -29,6 +53,7 @@ class Auction
   public function addAgent(AuctionAgentInterface $agent)
   {
     $this->agents[] = $agent;
+    $agent->setAuction($this);
     $this->processAgents();
   }
 
@@ -57,12 +82,22 @@ class Auction
 
   public function getWinningBids()
   {
+    if (!$this->winning_bids_calculated)
+    {
+      $this->reCalculateWinningBids();
+    }
     return $this->winning_bids;
   }
 
   protected function reCalculateWinningBids()
   {
-    $bids = array_filter($this->bids, function(Bid $bid) 
+    $regular_bids = $this->bids;
+    if (!is_array($regular_bids))
+    {
+      $regular_bids = $regular_bids->toArray();
+    }
+
+    $bids = array_filter($regular_bids, function(Bid $bid) 
     {
       return $bid->isActive();
     });
@@ -80,6 +115,8 @@ class Auction
     { 
       $this->winning_bids[] = $null_bid;
     }
+
+    $this->winning_bids_calculated = true;
   }
 
   protected function deactivateBidsByAgent(AuctionAgentInterface $agent)
@@ -145,6 +182,7 @@ class Auction
 
     $bid->setAddedAt(microtime(true));
     $this->bids[] = $bid;
+    $bid->setAuction($this);
     $this->reCalculateWinningBids();
   }
 

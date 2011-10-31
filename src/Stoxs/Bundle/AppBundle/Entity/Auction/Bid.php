@@ -2,20 +2,56 @@
 
 namespace Stoxs\Bundle\AppBundle\Entity\Auction;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
-* 
-*/
+ * @ORM\Entity
+ * @ORM\Table(name="bid")
+ */
 class Bid
 {
+  /**
+   * @ORM\Id 
+   * @ORM\Column(type="integer")
+   * @ORM\GeneratedValue
+   */
+  protected $id;
+
+  /**
+   * @ORM\ManyToOne(targetEntity="BaseAgent", inversedBy="bids", cascade={"persist"})
+   */
   protected $agent;
+
+  /**
+   * @ORM\Column(type="integer") 
+   */
   protected $amount;
+
+  /**
+   * @ORM\Column(type="float") 
+   */  
   protected $added_at;
+
+  /**
+   * @ORM\Column(type="boolean") 
+   */
   protected $is_active = true;
+
+  /**
+   * @ORM\ManyToOne(targetEntity="Auction", inversedBy="bids", cascade={"persist"})
+   */
+  protected $auction;
 
   public function __construct(AuctionAgentInterface $agent, $amount)
   {
+    $agent->addBid($this);
     $this->agent = $agent;
     $this->amount = $amount;
+  }
+
+  public function setAuction(Auction $auction)
+  {
+    $this->auction = $auction;
   }
 
   public function getAgent()

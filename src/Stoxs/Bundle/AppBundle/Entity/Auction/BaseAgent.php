@@ -1,0 +1,73 @@
+<?php
+
+namespace Stoxs\Bundle\AppBundle\Entity\Auction;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="agent")
+ * @ORM\InheritanceType("SINGLE_TABLE")
+ * @ORM\DiscriminatorColumn(name="discr", type="string")
+ * @ORM\DiscriminatorMap({"placemax" = "PlaceMaximizingAgent", "pricemin" = "PriceMinimizingAgent"})
+ */
+abstract class BaseAgent
+{
+  /**
+   * @ORM\Id 
+   * @ORM\Column(type="integer")
+   * @ORM\GeneratedValue
+   */
+  protected $id;
+
+  /**
+   * @ORM\Column(type="integer") 
+   */
+  protected $max_price;
+  
+  /**
+   * @ORM\Column(type="integer") 
+   */
+  protected $min_position;
+
+  /**
+   * @ORM\ManyToOne(targetEntity="Auction", inversedBy="agents", cascade={"persist"})
+   */
+  protected $auction;
+
+  /**
+   * @ORM\OneToMany(targetEntity="Bid", mappedBy="agent", cascade={"persist"})
+   */
+  protected $bids = array();
+
+  public function __construct($max_price, $min_position)
+  {
+    $this->max_price = $max_price;
+    $this->min_position = $min_position;
+  }
+
+  public function addBid(Bid $bid)
+  {
+    $this->bids[] = $bid;
+  }
+
+  public function setAuction(Auction $auction)
+  {
+    $this->auction = $auction;
+  }
+
+  public function getMaxPrice()
+  {
+    return $this->max_price;
+  }
+
+  public function getMinPosition()
+  {
+    return $this->min_position;
+  }
+
+  protected function get0IndexedMinPosition()
+  {
+    return $this->min_position - 1;
+  }
+}

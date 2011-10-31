@@ -2,38 +2,16 @@
 
 namespace Stoxs\Bundle\AppBundle\Entity\Auction;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
-* 
-*/
-class PriceMinimizingAgent implements AuctionAgentInterface
+ * @ORM\Entity
+ */
+class PriceMinimizingAgent extends BaseAgent implements AuctionAgentInterface
 {
-  protected $max_price;
-  protected $min_position;
-
-  public function __construct($max_price, $min_position)
-  {
-    $this->max_price = $max_price;
-    $this->min_position = $min_position;
-  }
-
   public function __toString()
   {
     return "Price minimizing agent with max-price ".$this->getMaxPrice()." min-pos ".$this->getMinPosition();
-  }
-
-  public function getMaxPrice()
-  {
-    return $this->max_price;
-  }
-
-  public function getMinPosition()
-  {
-    return $this->min_position;
-  }
-
-  protected function get0IndexedMinPosition()
-  {
-    return $this->min_position - 1;
   }
 
   public function actOnAuction(Auction $auction)
