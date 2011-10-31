@@ -2,13 +2,13 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}Stoxs.se - Marknadstips till marknadspris{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
 
         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
         
         {% stylesheets output='css/compressed.css'
-                        '@StoxsAppBundle/Resources/public/css/bootstrap/bootstrap.css' 
+          '@StoxsAppBundle/Resources/public/css/bootstrap/bootstrap.css' 
         %}
 
             <link rel="stylesheet" href="{{ asset_url }}" type="text/css" media="screen" />
@@ -26,11 +26,7 @@
           <script src="{{ asset_url }}" type="text/javascript"></script> 
         {% endjavascripts %}
         
-        
-        
         {% block javascripts %}{% endblock %}
-
-
     </head>
     <body>
       <div class="topbar">
@@ -39,6 +35,7 @@
             <a class="brand" href="{{ path('start') }}">Stoxs.se</a>
             <ul class="nav">
               <li class="active"><a href="{{ path('start') }}">Start</a></li>
+              <li class="active"><a href="{{ path('how_it_works') }}">Hur funkar det?</a></li>
             </ul>
             {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
             <p class="pull-right">
@@ -49,17 +46,12 @@
             </p>
             {% else %}
             
-                {% block fos_user_content %}
 
                 <form action="{{ path("fos_user_security_check") }}" method="post" class="pull-right">
-                    <input class="input-small" type="text" id="username" name="_username"  placeholder="{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}dsf" />
-
+                    <input class="input-small" type="text" id="username" name="_username"  placeholder="{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}" />
                     <input class="input-small" type="password" id="password" name="_password" placeholder="{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}" />
-
                     <button class="btn" type="submit" id="_submit" name="_submit">{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}</button>
                 </form>
-                
-                {% endblock fos_user_content %}
             
             {% endif %}
           </div>
@@ -68,18 +60,11 @@
       
       
       <div class="container">
-        <div class="row">
-          <div class="span4">
-            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-            <ul>
-              <li><a href="{{ path('agent_new') }}">Lägg ett bud</a></li>
-            </ul>
-            {% endif %}
-          </div>
-          <div class="span12">
-            {% block body %}{% endblock %}
-          </div>
-        </div>
+        
+        {% block herounit %}{% endblock %}
+        {% block custombody %}{% endblock %}
+        
+        {% block body %}{% endblock %}
       
         
       </div> <!-- /container -->  

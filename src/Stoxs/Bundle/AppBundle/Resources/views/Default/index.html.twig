@@ -1,13 +1,31 @@
 {% extends "::base.html.twig" %}
 
-{% block title -%}
-  Stoxs
-{%- endblock %}
+{% block herounit %}
+<div class="hero-unit">
+  <h1>Marknadstips till marknadspris</h1>
+  <p>Vestibulum id ligula porta felis euismod semper. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</p>
+  <p><a class="btn primary large" href="{{ path('fos_user_registration_register') }}">Bli medlem &raquo;</a></p>
+</div>
+{% endblock %}
 
-{% block body %}
+{% block custombody %}
 
-<h1>Hello world</h1>
-
+<div class="row">
+  <div class="span8">
+    <h2>Inga fasta priser</h2>
+    <p>Du väljer själv hur värdet som Du vill betala? För bra för att vara sant?</p>
+    <p>Det är enkelt, precis som på aktiemarknaden är det marknaden som styr och den som betalar högst är först i orderboken.</p>
+    <p>Skillnaden är att med Stoxs.se får alla vara med, men det är priset Du betalar som avgör Din plats i kön!</p>
+    <p>Ju högre pris ju tidigare ligger Dui kön och får snabbare information!</p>
+  </div>
+  <div class="span8">
+    <h2>Marknadstips till marknadspris</h2>
+    <p>Vill Du äga aktien innan stimmet får upp ögonen för denna?</p>
+    <p>Stoxs.se är tjänsten som gör att Du kan vara först in – och först ut – när det händer. Du kommer aldrig mer behöva bli lidande för att Du inte var uppkopplad – Stoxs.se förser Dig med informationen Du behöver – när Du behöver den.</p>
+    <p>Våra topprankade aktieanalytiker följer marknaderna när de är öppna – och ofta när de är stängda med – så att Du slipper det. De bevakar och informerar Dig med ett SMS.</p>
+    <p>Med vår tjänst kan du alltid hålla dig uppdaterad om hur det går för dina aktier, även när du inte sitter framför datorn. Snabbt, smidigt och enkelt beställer du vilka aktier eller index du vill bevaka, samt vilken servicenivå du önskar.</p>
+  </div>
+</div>
 
 
 {% endblock %}

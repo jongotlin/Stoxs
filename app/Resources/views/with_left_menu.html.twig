@@ -1,0 +1,23 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+<div class="row">
+  <div class="span4">
+  
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+    <ul>
+      {% if app.user.hasActiveBid %}
+      <li><a href="{{ path('agent_edit') }}">Ändra bud</a></li>
+      {% else %}
+      <li><a href="{{ path('agent_new') }}">Lägg ett bud</a></li>
+      {% endif %}
+    </ul>
+    {% else %}
+      {% block menucol %}{% endblock %}
+    {% endif %}
+  </div>
+  <div class="span12">
+    {% block colbody %}{% endblock %}
+  </div>
+</div>
+{% endblock %}

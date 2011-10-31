@@ -61,4 +61,9 @@ class User extends BaseUser
     {
         return $this->ssn;
     }
+    
+    public function hasActiveBid()
+    {
+      return false;
+    }
 }

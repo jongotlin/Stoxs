@@ -1,0 +1,57 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+<h1>Hur fungerar det?</h1>
+<p>Anta att vi har en auktion med minsta budökning om 5 kronor, det finns tre platser men fyra personer som vill ha informationen. Adam, Bertil, Caesar och David vill alla vara med och få informationen.</p>
+<p>Adam vill vara säker på att han får informationen snabbt, helst först, men absolut senast som andreman. Han bjuder då 10 kronor och får plats nummer ett i kön.</p>
+<p>Bertil däremot vill vara med i kön, han är intresserad av att få informationen men det är inte lika viktigt att han får den snabbt, bara han får den. Han bjuder också 10 kronor och får plats nummer två i kön.</p>
+<p>Cesar däremot vill vara säker på att han får informationen först och bjuder därför 20 kronor. Budköns utseende blir då
+<ol>
+<li>Caesar 20 kr</li>
+<li>Adam 10 kr</li>
+<li>Bertil 10 kr</li>
+</ol>
+</p>
+
+<p>David nöjer sig, precis som Bertil med att få informationen som nummer två och bjuder också 20 kronor.<p>
+<p>Budköns nya utseende blir då
+<ol>
+<li>Caesar 100 kr</li>
+<li>David 100 kr</li>
+<li>Adam 50 kr</li>
+</ol>
+</p>
+
+<p>Eftersom Adam vill ha informationen tidigt, senast som nummer två så ökar han sitt bud till 150 kronor.</p>
+<p>Budköns får återigen ett nytt utseende
+<li>Adam 150 kr</li>
+<li>Caesar 100 kr</li>
+<li>David 100 kr</li>
+</p>
+
+<p>Bertil är inte beredd att betala 150 kr för plats 3, så han drar sig ur.</p>
+<p>Caesar bjuder 200 kr för att vara säker på att han är först vilket återigen ändrar turordningen.
+<ol>
+<li>Caesar 200 kr</li>
+<li>Adam 150 kr</li>
+<li>David 100kr</li>
+</ol>
+</p>
+
+<p>David är inte beredd att betala 250 kr för plats två, så han drar sig också ur vilket gör att kön får följande utseende.
+<ol>
+<li>Caesar 200 kr</li>
+<li>Adam 150 kr</li>
+<li>Tomt</li>
+</ol>
+</p>
+
+<p>Adam är nöjd, och Bertil ser att han återigen kan komma med, så han lägger ett nytt bud, denna gng på 50 kronor. Kön får då följande utseende,
+<li>Caesar 200 kr</li>
+<li>Adam 150 kr</li>
+<li>Bertil 50 kr</li>
+</ol>
+</p>
+<p>Cesar är nöjd, han vet att han får informationen först, David som har dragit sig ur är också nöjd. En eventuell ny budgivare måste lägga ett bud på minst 200 kronor får att få vara med i auktionen då platserna fördelas efter tidpunkten när budet lades.</p>
+
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "::base.html.twig" %}
+
+{% block herounit %}
+<div class="hero-unit">
+  <h1>Inloggad</h1>
+  
+  {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+    {% if app.user.hasActiveBid %}  
+      <p>Vestibulum id ligula porta felis euismod semper. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</p>
+      <p><a class="btn primary large" href="{{ path('agent_edit') }}">Ändra bud &raquo;</a></p>
+    {% else %}
+      <p>Vestibulum id ligula porta felis euismod semper. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</p>
+      <p><a class="btn primary large" href="{{ path('agent_new') }}">Lägg bud &raquo;</a></p>
+    {% endif %}
+  {% endif %}
+    
+</div>
+{% endblock %}
+
