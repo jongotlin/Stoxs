@@ -2,7 +2,7 @@
 
 namespace Stoxs\Bundle\AppBundle\Tests\Auction;
 
-use Stoxs\Bundle\AppBundle\Auction;
+use Stoxs\Bundle\AppBundle\Entity\Auction;
 
 /**
 * 
@@ -12,7 +12,6 @@ class AuctionIntegrationTest extends \PHPUnit_Framework_TestCase
   public function testPlaceMaximizingIntegration()
   {
     $auction = new Auction\Auction(5, 50);
-    $auctioneer = new Auction\Auctioneer($auction);
 
     $agent1 = new Auction\PlaceMaximizingAgent(1300, 3);
     $agent2 = new Auction\PlaceMaximizingAgent(2000, 1);
@@ -22,19 +21,19 @@ class AuctionIntegrationTest extends \PHPUnit_Framework_TestCase
     $agent6 = new Auction\PlaceMaximizingAgent(1300, 2);
     $agent7 = new Auction\PlaceMaximizingAgent(5000, 4);
 
-    $auctioneer->addAgent($agent1);
+    $auction->addAgent($agent1);
 //    $this->debugBidList($auction);
-    $auctioneer->addAgent($agent2);
+    $auction->addAgent($agent2);
 //    $this->debugBidList($auction);
-    $auctioneer->addAgent($agent3);
+    $auction->addAgent($agent3);
 //    $this->debugBidList($auction);
-    $auctioneer->addAgent($agent4);
+    $auction->addAgent($agent4);
 //    $this->debugBidList($auction);
-    $auctioneer->addAgent($agent5);
+    $auction->addAgent($agent5);
 //    $this->debugBidList($auction);
-    $auctioneer->addAgent($agent6);
+    $auction->addAgent($agent6);
 //    $this->debugBidList($auction);
-    $auctioneer->addAgent($agent7);
+    $auction->addAgent($agent7);
 //    $this->debugBidList($auction);
 
     $winning_bids = $auction->getWinningBids();
@@ -51,13 +50,12 @@ class AuctionIntegrationTest extends \PHPUnit_Framework_TestCase
     $this->assertEquals($agent3, $winning_bids[3]->getAgent());
     $this->assertEquals(650, $winning_bids[3]->getAmount());
 
-    $this->assertInstanceOf('Stoxs\\Bundle\\AppBundle\\Auction\\NullBid', $winning_bids[4]);
+    $this->assertInstanceOf('Stoxs\\Bundle\\AppBundle\\Entity\\Auction\\NullBid', $winning_bids[4]);
   }
 
   public function testPriceMinimizingIntegration()
   {
     $auction = new Auction\Auction(5, 50);
-    $auctioneer = new Auction\Auctioneer($auction);
 
     $agent1 = new Auction\PriceMinimizingAgent(1300, 3);
     $agent2 = new Auction\PriceMinimizingAgent(2000, 1);
@@ -67,19 +65,19 @@ class AuctionIntegrationTest extends \PHPUnit_Framework_TestCase
     $agent6 = new Auction\PriceMinimizingAgent(1300, 2);
     $agent7 = new Auction\PriceMinimizingAgent(5000, 4);
 
-    $auctioneer->addAgent($agent1);
+    $auction->addAgent($agent1);
 //    $this->debugBidList($auction);
-    $auctioneer->addAgent($agent2);
+    $auction->addAgent($agent2);
 //    $this->debugBidList($auction);
-    $auctioneer->addAgent($agent3);
+    $auction->addAgent($agent3);
 //    $this->debugBidList($auction);
-    $auctioneer->addAgent($agent4);
+    $auction->addAgent($agent4);
 //    $this->debugBidList($auction);
-    $auctioneer->addAgent($agent5);
+    $auction->addAgent($agent5);
 //    $this->debugBidList($auction);
-    $auctioneer->addAgent($agent6);
+    $auction->addAgent($agent6);
 //    $this->debugBidList($auction);
-    $auctioneer->addAgent($agent7);
+    $auction->addAgent($agent7);
 //    $this->debugBidList($auction);
 
     $winning_bids = $auction->getWinningBids();
