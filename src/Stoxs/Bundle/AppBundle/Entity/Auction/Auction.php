@@ -1,6 +1,6 @@
 <?php
 
-namespace Stoxs\Bundle\AppBundle\Auction;
+namespace Stoxs\Bundle\AppBundle\Entity\Auction;
 
 /**
 * 
@@ -16,12 +16,33 @@ class Auction
 
   protected $minimum_increment;
 
+  protected $agents;
+
   public function __construct($winner_limit, $minimum_increment)
   {
     $this->winner_limit = $winner_limit;
     $this->minimum_increment = $minimum_increment;
 
     $this->recalculateWinningBids();
+  }
+
+  public function addAgent(AuctionAgentInterface $agent)
+  {
+    $this->agents[] = $agent;
+    $this->processAgents();
+  }
+
+  public function processAgents()
+  {
+    do 
+    {
+      $altered_at = $this->getAlteredAt();
+
+      foreach ($this->agents as $agent) 
+      {
+        $agent->actOnAuction($this);
+      }
+    } while ($altered_at != $this->getAlteredAt());
   }
 
   public function getMinimumIncrement()

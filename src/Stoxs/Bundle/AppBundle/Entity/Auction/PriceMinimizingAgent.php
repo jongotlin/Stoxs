@@ -1,6 +1,6 @@
 <?php
 
-namespace Stoxs\Bundle\AppBundle\Auction;
+namespace Stoxs\Bundle\AppBundle\Entity\Auction;
 
 /**
 * 
