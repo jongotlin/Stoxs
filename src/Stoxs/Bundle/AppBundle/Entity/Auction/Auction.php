@@ -16,6 +16,11 @@ class Auction
    * @ORM\GeneratedValue
    */
   protected $id;
+  
+  /**
+   * @ORM\Column(type="datetime")
+   */
+  protected $stop_time;
 
   /**
    * @ORM\OneToMany(targetEntity="Bid", mappedBy="auction", cascade={"persist"})
@@ -199,4 +204,30 @@ class Auction
   {
     return $this->altered_at;
   }
+  
+  public function setStopTime($stop_time)
+  {
+    $this->stop_time = $stop_time;
+  }
+  
+  public function getStopTime()
+  {
+    return $this->stop_time;
+  }
+  
+  public function setWinnerLimit($winner_limit)
+  {
+    $this->winner_limite = $winner_limit;
+  }
+  
+  public function getWinnerLimit()
+  {
+    return $this->winner_limit;
+  }
+  
+  public function setMinimunIncrement($minimum_increment)
+  {
+    $this->minimum_increment = $minimum_increment;
+  }
+
 }

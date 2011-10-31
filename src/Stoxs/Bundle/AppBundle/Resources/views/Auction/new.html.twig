@@ -1,0 +1,50 @@
+{% extends "::with_left_menu.html.twig" %}
+
+{% block colbody %}
+
+<h1>Skapa auktion</h1>
+
+
+
+
+
+<form action="{{ path('new_auction') }}" {{ form_enctype(form) }} method="POST">
+<fieldset>
+    
+    {{ form_errors(form) }}
+  
+      <div class="clearfix">
+      {{ form_label(form.winner_limit, 'Max antal:') }}
+        <div class="input">
+            {{ form_widget(form.winner_limit) }}
+            <span class="help-block">Rekommenderat 100 st</span>
+        </div>
+      </div>
+
+      <div class="clearfix">
+        <label>Minsta höjning:</label>
+        <div class="input">
+            {{ form_widget(form.minimum_increment) }}
+            <span class="help-block">Rekommenderat 25kr</span>
+        </div>
+      </div>
+
+      <div class="clearfix">
+        <label>Slutdatum:</label>
+        <div class="input">
+            {{ form_widget(form.stop_time, {'attr': {'class': 'medium'}}) }}
+            <span class="help-block">ÅÅÅÅ-MM-DD TT:MM:SS</span>
+        </div>
+      </div>
+    {{ form_rest(form) }}
+
+    <div class="actions">
+        <input class="btn primary" type="submit" value="Spara" />
+    </div>
+</fieldset>
+</form>
+
+
+
+
+{% endblock %}
