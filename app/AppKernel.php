@@ -20,6 +20,7 @@ class AppKernel extends Kernel
             new FOS\UserBundle\FOSUserBundle(),
             new Stoxs\Bundle\AppBundle\StoxsAppBundle(),
             new Stoxs\Bundle\UserBundle\StoxsUserBundle(),
+            new JGI\Bundle\MessyBundle\JGIMessyBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

@@ -15,7 +15,9 @@ $loader->registerNamespaces(array(
     'Assetic'          => __DIR__.'/../vendor/assetic/src',
     'Metadata'         => __DIR__.'/../vendor/metadata/src',
     'FOS' => __DIR__.'/../vendor/bundles',
-    'Stoxs'            => __DIR__.'/../src'
+    'Stoxs'            => __DIR__.'/../src',
+    'JGI\Bundle\MessyBundle' => __DIR__.'/../vendor/bundles',
+    'Messy' => __DIR__.'/../vendor/messy/src',
 ));
 $loader->registerPrefixes(array(
     'Twig_Extensions_' => __DIR__.'/../vendor/twig-extensions/lib',

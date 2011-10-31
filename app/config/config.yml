@@ -6,6 +6,12 @@ parameters:
     locale:          sv
     fos_user.profile.form.type: stoxs_user_profile
 
+services:
+    messy_error_log_provider:
+        class: Messy\Provider\ErrorLogProvider
+        tags:
+          - { name: messy.provider, priority: 0 }
+
 framework:
     #esi:             ~
     translator:      { fallback: %locale% }
