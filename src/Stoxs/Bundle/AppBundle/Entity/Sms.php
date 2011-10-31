@@ -4,6 +4,8 @@ namespace Stoxs\Bundle\AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use Messy\MessageInterface;
+
 /**
  * Stoxs\Bundle\AppBundle\Entity\Sms
  *
@@ -11,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks
  */
-class Sms
+class Sms implements MessageInterface
 {
     /**
      * @var integer $id
@@ -41,6 +43,7 @@ class Sms
      */
     private $user;
 
+    private $recipient_users = array();
 
     public function setUser(User $user)
     {
@@ -51,7 +54,17 @@ class Sms
     {
       return $this->user;
     }
-    
+
+    public function addRecipientUser(User $user)
+    {
+        $this->recipient_users[] = $user;
+    }
+
+    public function getRecipientUsers()
+    {
+        return $this->recipient_users;
+    }
+
     /**
      * Get id
      *
@@ -108,5 +121,22 @@ class Sms
     public function prePersist()
     {
         $this->created_at = new \DateTime();
+    }
+
+    // ------- MessageInterface --------
+
+    public function getMessageBody()
+    {
+        return $this->getBody();
+    }
+
+    public function getSender()
+    {
+        return $this->getUser();
+    }
+
+    public function getRecipients()
+    {
+        return $this->getRecipientUsers();
     }
 }

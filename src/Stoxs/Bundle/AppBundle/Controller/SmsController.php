@@ -24,6 +24,7 @@ class SmsController extends Controller
       
       $sms = new Sms;
       $sms->setUser($user);
+      $sms->addRecipientUser($user);
       
       $form = $this->createForm(new SmsType, $sms);
       
@@ -33,6 +34,8 @@ class SmsController extends Controller
         if ($form->isValid()) {
           $em->persist($sms);
           $em->flush();
+
+//          $this->get('jgi_messy.message_center')->send($sms);
           
           return $this->redirect($this->generateUrl('send_sms_completed'));
         }

@@ -7,8 +7,15 @@ parameters:
     fos_user.profile.form.type: stoxs_user_profile
 
 services:
-    messy_error_log_provider:
-        class: Messy\Provider\ErrorLogProvider
+#    messy_error_log_provider:
+#        class: Messy\Provider\ErrorLogProvider
+#        tags:
+#          - { name: messy.provider, priority: 0 }
+    messy_mosms_provider:
+        class: Messy\Provider\MosmsProvider
+        arguments:
+          - "stoxs"
+          - "stoxs24hbc"
         tags:
           - { name: messy.provider, priority: 0 }
 

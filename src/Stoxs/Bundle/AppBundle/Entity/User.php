@@ -7,11 +7,13 @@ use Doctrine\ORM\Mapping as ORM;
 
 use Doctrine\Common\Collections\ArrayCollection;
 
+use Messy\MessagePartyInterface;
+
 /**
  * @ORM\Entity
  * @ORM\Table(name="fos_user")
  */
-class User extends BaseUser
+class User extends BaseUser implements MessagePartyInterface
 {
     /**
      * @ORM\Id
@@ -49,6 +51,16 @@ class User extends BaseUser
     public function getId()
     {
         return $this->id;
+    }
+
+    public function getNormalizedPhoneNumber()
+    {
+        return '+46'.substr($this->getPhoneNumber(), 1);
+    }
+  
+    public function getName()
+    {
+        return $this->getUsername();
     }
 
     /**
