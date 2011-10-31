@@ -16,6 +16,11 @@ class PlaceMaximizingAgent implements AuctionAgentInterface
     $this->min_position = $min_position;
   }
 
+  public function __toString()
+  {
+    return "Position maximizing agent with max-price ".$this->getMaxPrice()." min-pos ".$this->getMinPosition();
+  }
+
   public function getMaxPrice()
   {
     return $this->max_price;
@@ -32,6 +37,58 @@ class PlaceMaximizingAgent implements AuctionAgentInterface
   }
 
   public function actOnAuction(Auction $auction)
+  {
+    $bids = $auction->getWinningBids();
+
+    $minimum_increment = $auction->getMinimumIncrement();
+
+    $current_position = $auction->getBidPositionForAgent($this);
+
+    $candidate_to_overtake = null;
+
+    $index0 = $this->get0IndexedMinPosition();
+
+    foreach ($bids as $position => $bid) 
+    {
+      if ($position <= $index0 && 
+          ($current_position === null || $position < $current_position))
+      {
+        if ( $bid->getAmount()+$minimum_increment <= $this->max_price && 
+             $bid->getAgent() != $this)
+        {
+          $candidate_to_overtake = $bid;
+          break;
+        }
+      }
+      else
+      {
+        break;
+      }
+    }
+
+    // There's noone to overtake
+    if ($candidate_to_overtake == null)
+    {
+      // Are we at an acceptable position?
+      if ($current_position !== null && $current_position <= $index0)
+      {
+        // If so, we're happy just the way we are
+        return;
+      }
+      else if ($auction->getAgentHasActiveBid($this))
+      {
+        // Otherwise, we need to pull out, if we're still in
+        $auction->pullOut($this);
+      }
+    }
+    else 
+    {
+      // Let's bid!
+      $auction->placeBid(new Bid($this, $candidate_to_overtake->getAmount() + $minimum_increment));
+    }
+  }
+
+/*  public function actOnAuction(Auction $auction)
   {
     $bids = $auction->getWinningBids();
 
@@ -64,7 +121,12 @@ class PlaceMaximizingAgent implements AuctionAgentInterface
     {
       if ($best_position <= $this->get0IndexedMinPosition())
       {
-        $auction->placeBid(new Bid($this, $best_bid->getAmount() + $minimum_increment));
+        $current_bid = $auction->getActiveBidForAgent($this);
+
+        if (!$current_bid || $current_bid->getAmount() < ($best_bid->getAmount() + $minimum_increment))
+        {
+          $auction->placeBid(new Bid($this, $best_bid->getAmount() + $minimum_increment));
+        }
       }
       else if ($auction->getAgentHasActiveBid($this))
       {
@@ -80,5 +142,5 @@ class PlaceMaximizingAgent implements AuctionAgentInterface
       }
 
     }
-  }
+  }*/
 }

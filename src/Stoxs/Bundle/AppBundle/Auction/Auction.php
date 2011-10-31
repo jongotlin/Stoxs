@@ -53,9 +53,11 @@ class Auction
 
     $this->winning_bids = array_slice(array_reverse($bids), 0, $this->winner_limit);
 
+    $null_bid = new NullBid();
+
     for ($i=count($this->winning_bids); $i < $this->winner_limit; $i++) 
     { 
-      $this->winning_bids[] = new NullBid();
+      $this->winning_bids[] = $null_bid;
     }
   }
 
@@ -81,6 +83,32 @@ class Auction
     }
 
     return false;
+  }
+
+  public function getActiveBidForAgent(AuctionAgentInterface $agent)
+  {
+    foreach ($this->bids as $bid) 
+    {
+      if ($bid->getAgent() == $agent && $bid->isActive())
+      {
+        return $bid;
+      }
+    }
+
+    return null;
+  }
+
+  public function getBidPositionForAgent(AuctionAgentInterface $agent)
+  {
+    foreach ($this->winning_bids as $pos => $bid) 
+    {
+      if ($bid->getAgent() == $agent)
+      {
+        return $pos;
+      }
+    }
+
+    return null;
   }
 
   protected function getAgentHash(AuctionAgentInterface $agent)
