@@ -1,0 +1,7 @@
+#.tmp*
+.DS_Store
+app/cache
+app/logs
+web/bundles
+vendor
+app/config/parameters.ini
