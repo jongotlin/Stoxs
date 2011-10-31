@@ -21,7 +21,8 @@ class User extends BaseUser
     public function __construct()
     {
         parent::__construct();
-        // your own logic
+
+        $this->smses = new ArrayCollection();
     }
 
     /**
@@ -92,5 +93,17 @@ class User extends BaseUser
     public function hasActiveBid()
     {
       return false;
+    }
+    
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Sms", mappedBy="user") 
+     */
+    private $smses;
+    
+    
+    public function getSmses()
+    {
+      return $this->smses;
     }
 }

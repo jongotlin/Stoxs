@@ -1,0 +1,37 @@
+{% extends "::with_left_menu.html.twig" %}
+
+{% block colbody %}
+
+<h1>Skicka sms</h1>
+
+
+
+
+
+<form action="{{ path('send_sms') }}" {{ form_enctype(form) }} method="POST">
+<fieldset>
+    
+    {{ form_errors(form) }}
+  
+      <div class="clearfix">
+        <label>Fyll i tips:</label>
+        <div class="input">
+            {{ form_widget(form.body, {'attr': {'class': 'xxlarge'}}) }}
+            <span class="help-block">Skicka bra tips nu!</span>
+        </div>
+      </div>
+
+
+
+    {{ form_rest(form) }}
+
+    <div class="actions">
+        <input class="btn primary" type="submit" value="Skicka" />
+    </div>
+</fieldset>
+</form>
+
+
+
+
+{% endblock %}
