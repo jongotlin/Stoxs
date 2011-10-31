@@ -4,6 +4,7 @@ imports:
 
 parameters:
     locale:          sv
+    fos_user.profile.form.type: stoxs_user_profile
 
 framework:
     #esi:             ~
@@ -65,3 +66,8 @@ fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb'
     firewall_name: main
     user_class: Stoxs\Bundle\AppBundle\Entity\User
+    
+    registration:
+        form:
+            type: stoxs_user_profile
+            type: stoxs_user_registration

@@ -1,4 +1,28 @@
-<div class="fos_user_user_show">
-    <p>{{ 'profile.show.username'|trans({}, 'FOSUserBundle') }}: {{ user.username }}</p>
-    <p>{{ 'profile.show.email'|trans({}, 'FOSUserBundle') }}: {{ user.email }}</p>
-</div>
+<form>
+<fieldset>
+    <div class="clearfix">
+      {{ 'profile.show.username'|trans({}, 'FOSUserBundle') }}
+      <div class="input">
+          {{ user.username }}
+      </div>
+    </div>
+
+    <div class="clearfix">
+      {{ 'profile.show.email'|trans({}, 'FOSUserBundle') }}
+      <div class="input">
+          {{ user.email }}
+      </div>
+    </div>
+
+    <div class="clearfix">
+      Mobiltelefonnummer
+      <div class="input">
+          {{ user.phoneNumber }}
+      </div>
+    </div>
+        
+    <div class="actions">
+        <a href="{{ path('fos_user_profile_edit') }}" class="btn primary">Ändra</a>
+    </div>
+</fieldset>
+</form>

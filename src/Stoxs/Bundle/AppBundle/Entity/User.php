@@ -31,6 +31,12 @@ class User extends BaseUser
      */
     private $ssn;
 
+    /**
+     * @var string $phone_number
+     *
+     * @ORM\Column(name="phone_number", type="string", length=11, nullable=true)
+     */
+    private $phone_number;
 
     /**
      * Get id
@@ -61,6 +67,27 @@ class User extends BaseUser
     {
         return $this->ssn;
     }
+    
+    /**
+     * Set phone_number
+     *
+     * @param string $phone_number
+     */
+    public function setPhoneNumber($phone_number)
+    {
+        $this->phone_number = $phone_number;
+    }
+
+    /**
+     * Get phone_number
+     *
+     * @return string 
+     */
+    public function getPhoneNumber()
+    {
+        return $this->phone_number;
+    }
+    
     
     public function hasActiveBid()
     {

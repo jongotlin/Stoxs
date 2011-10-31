@@ -1,5 +1,10 @@
-{% extends "FOSUserBundle::layout.html.twig" %}
+{% extends "::with_left_menu.html.twig" %}
+
+{% block colbody %}
 
 {% block fos_user_content %}
 {% include "FOSUserBundle:Profile:show_content.html.twig" %}
 {% endblock fos_user_content %}
+
+{% endblock %}
+

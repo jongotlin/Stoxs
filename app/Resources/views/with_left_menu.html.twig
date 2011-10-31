@@ -11,6 +11,7 @@
       {% else %}
       <li><a href="{{ path('agent_new') }}">Lägg ett bud</a></li>
       {% endif %}
+      <li><a href="{{ path('fos_user_profile_show') }}">Mina uppgifter</a></li>
     </ul>
     {% else %}
       {% block menucol %}{% endblock %}

@@ -1,8 +1,54 @@
 {% form_theme form theme %}
 
 <form action="{{ path('fos_user_profile_edit') }}" {{ form_enctype(form) }} method="POST" class="fos_user_profile_edit">
-    {{ form_widget(form) }}
-    <div>
-        <input type="submit" value="{{ 'profile.edit.submit'|trans({}, 'FOSUserBundle') }}" />
+<fieldset>
+    
+    {{ form_errors(form) }}
+  
+  <div class="clearfix">
+    {{ form_label(form.user.username) }}
+    <div class="input">
+        {{ form_widget(form.user.username, {'attr': {'class': 'xlarge'}}) }}
     </div>
+  </div>
+
+  <div class="clearfix">
+    {{ form_label(form.user.email) }}
+    <div class="input">
+        {{ form_widget(form.user.email, {'attr': {'class': 'xlarge'}}) }}
+    </div>
+  </div>
+
+  <div class="clearfix">
+    <label>Personnummer:</label>
+    <div class="input">
+        {{ form_widget(form.user.ssn, {'attr': {'class': 'xlarge'}}) }}
+    </div>
+  </div>
+
+  <div class="clearfix">
+    <label>Mobiltelefonnummer:</label>
+    <div class="input">
+        {{ form_widget(form.user.phoneNumber, {'attr': {'class': 'xlarge'}}) }}
+    </div>
+  </div>
+
+
+
+  <div class="clearfix">
+    {{ form_label(form.current) }}
+    <div class="input">
+        {{ form_widget(form.current, {'attr': {'class': 'xlarge'}}) }}
+    </div>
+  </div>
+
+
+    
+
+    {{ form_rest(form) }}
+
+    <div class="actions">
+        <input class="btn primary" type="submit" value="{{ 'profile.edit.submit'|trans({}, 'FOSUserBundle') }}" />
+    </div>
+</fieldset>
 </form>

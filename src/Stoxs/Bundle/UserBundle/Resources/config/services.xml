@@ -17,4 +17,17 @@
         </service>
     </services>
     -->
+    
+    <services>
+      <service id="stoxs_user.profile.form.type" class="Stoxs\Bundle\UserBundle\Form\Type\ProfileFormType">
+           <tag name="form.type" alias="stoxs_user_profile" />
+           <argument>%fos_user.model.user.class%</argument>
+       </service>
+       
+        <service id="stoxs_user.registration.form.type" class="Stoxs\Bundle\UserBundle\Form\Type\RegistrationFormType">
+            <tag name="form.type" alias="stoxs_user_registration" />
+            <argument>%fos_user.model.user.class%</argument>
+        </service>
+
+    </services>
 </container>
