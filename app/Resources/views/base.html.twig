@@ -6,15 +6,93 @@
         {% block stylesheets %}{% endblock %}
 
         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+        
+        {% stylesheets output='css/compressed.css'
+                        '@StoxsAppBundle/Resources/public/css/bootstrap/bootstrap.css' 
+        %}
 
-      
+            <link rel="stylesheet" href="{{ asset_url }}" type="text/css" media="screen" />
+        {% endstylesheets %}
+        <style type="text/css">
+          body {
+            padding-top: 60px;
+          }
+        </style>
+        
+        {% javascripts 
+          '@StoxsAppBundle/Resources/public/js/main.js'
+          '@StoxsAppBundle/Resources/public/js/jquery-1.6.4.min.js'
+        %}
+          <script src="{{ asset_url }}" type="text/javascript"></script> 
+        {% endjavascripts %}
+        
+        
+        
+        {% block javascripts %}{% endblock %}
 
 
     </head>
     <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+      <div class="topbar">
+        <div class="fill">
+          <div class="container">
+            <a class="brand" href="{{ path('start') }}">Stoxs.se</a>
+            <ul class="nav">
+              <li class="active"><a href="{{ path('start') }}">Start</a></li>
+            </ul>
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            <p class="pull-right">
+                {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
+                <a href="{{ path('fos_user_security_logout') }}">
+                    {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+                </a>
+            </p>
+            {% else %}
+            
+                {% block fos_user_content %}
+
+                <form action="{{ path("fos_user_security_check") }}" method="post" class="pull-right">
+                    <input class="input-small" type="text" id="username" name="_username"  placeholder="{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}dsf" />
+
+                    <input class="input-small" type="password" id="password" name="_password" placeholder="{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}" />
+
+                    <button class="btn" type="submit" id="_submit" name="_submit">{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}</button>
+                </form>
+                
+                {% endblock fos_user_content %}
+            
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      
+      
+      <div class="container">
+        <div class="row">
+          <div class="span4">
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            <ul>
+              <li><a href="{{ path('agent_new') }}">Lägg ett bud</a></li>
+            </ul>
+            {% endif %}
+          </div>
+          <div class="span12">
+            {% block body %}{% endblock %}
+          </div>
+        </div>
+      
         
+      </div> <!-- /container -->  
+      
+      
+      <footer class="footer">
+        <div class="container">
+          <p class="pull-right"><a href="#">Upp</a></p>
+          <p>
+            ...
+          </p>
+        </div>
+      </footer>
         
         
         <script type="text/javascript">
