@@ -115,9 +115,19 @@ class User extends BaseUser implements MessagePartyInterface
      */
     private $smses;
     
-    
     public function getSmses()
     {
       return $this->smses;
+    }
+    
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Stoxs\Bundle\AppBundle\Entity\Auction\BaseAgent", mappedBy="user") 
+     */
+    private $agents;
+    
+    public function getAgents()
+    {
+      return $this->agents;
     }
 }

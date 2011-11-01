@@ -3,10 +3,12 @@
 namespace Stoxs\Bundle\AppBundle\Entity\Auction;
 
 use Doctrine\ORM\Mapping as ORM;
+use Stoxs\Bundle\AppBundle\Entity\Auction\AuctionRepository;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="auction")
+ * @ORM\Entity(repositoryClass="Stoxs\Bundle\AppBundle\Entity\Auction\AuctionRepository")
  */
 class Auction
 {
@@ -235,4 +237,8 @@ class Auction
     return $this->getStopTime()->format('Y-m-d H:m:s');
   }
 
+  public function getId()
+  {
+    return $this->id;
+  }
 }

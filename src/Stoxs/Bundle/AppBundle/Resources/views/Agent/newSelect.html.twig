@@ -1,0 +1,19 @@
+{% extends "::with_left_menu.html.twig" %}
+
+{% block title -%}
+  Lägg ett bud
+{%- endblock %}
+
+{% block colbody %}
+
+<h1>Lägg ett bud</h1>
+
+<p>Välj först vilken auktion du vill buda på</p>
+
+<ul>
+{% for auction in auctions %}
+<li><a href="">Auktion som slutar {{ auction.stopTime|date("Y-m-d H:i:s") }}</a></li>
+{% endfor %}
+</ul>
+
+{% endblock %}

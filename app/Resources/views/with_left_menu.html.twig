@@ -9,7 +9,7 @@
       {% if app.user.hasActiveBid %}
       <li><a href="{{ path('agent_edit') }}">Ändra bud</a></li>
       {% else %}
-      <li><a href="{{ path('agent_new') }}">Lägg ett bud</a></li>
+      <li><a href="{{ path('agent_new_select') }}">Lägg ett bud</a></li>
       {% endif %}
       <li><a href="{{ path('fos_user_profile_show') }}">Mina uppgifter</a></li>
     </ul>

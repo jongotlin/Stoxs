@@ -3,6 +3,7 @@
 namespace Stoxs\Bundle\AppBundle\Entity\Auction;
 
 use Doctrine\ORM\Mapping as ORM;
+use Stoxs\Bundle\AppBundle\Entity\User;
 
 /**
  * @ORM\Entity
@@ -39,6 +40,22 @@ abstract class BaseAgent
    * @ORM\OneToMany(targetEntity="Bid", mappedBy="agent", cascade={"persist"})
    */
   protected $bids = array();
+
+  /**
+   * @ORM\ManyToOne(targetEntity="Stoxs\Bundle\AppBundle\Entity\User", inversedBy="agents")
+   */
+  private $user;
+
+  public function setUser(User $user)
+  {
+    $this->user = $user;
+  }
+  
+  public function getUser()
+  {
+    return $this->user;
+  }
+
 
   public function __construct($max_price, $min_position)
   {

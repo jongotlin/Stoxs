@@ -7,6 +7,24 @@
 {% block colbody %}
 
 <h1>Lägg ett bud</h1>
+<p>Auktionen slutar {{ auction.stopTime|date("Y-m-d H:i:s") }}</p>
+
+
+
+<form action="{{ path('agent_new', {'id': auction.id }) }}" {{ form_enctype(form) }} method="POST">
+
+<fieldset>
+
+
+    {{ form_widget(form) }}
+    
+    <div class="actions">
+
+        <input type="submit" class="btn primary" value="Lägg bud" />
+    </div>
+</form>
+
+
 
 
 {% endblock %}
