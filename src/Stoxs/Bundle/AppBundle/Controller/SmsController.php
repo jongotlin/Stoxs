@@ -7,7 +7,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Response;
 use Stoxs\Bundle\AppBundle\Entity\Sms;
-use Stoxs\Bundle\AppBundle\Form\SmsType;
+use Stoxs\Bundle\AppBundle\Entity\SmsAuctions;
+use Stoxs\Bundle\AppBundle\Entity\Auction\AuctionRepository;
+
+use Stoxs\Bundle\AppBundle\Form\SmsAuctionsType;
 
 class SmsController extends Controller
 {
@@ -26,13 +29,19 @@ class SmsController extends Controller
       $sms->setUser($user);
       $sms->addRecipientUser($user);
       
-      $form = $this->createForm(new SmsType, $sms);
+      $sms_auctions = new SmsAuctions;
+      $sms_auctions->sms = $sms;
+
+      
+      //$auctions = $this->getRepository('StoxsAppBundle:Auction')->findAllEndedAuctions();
+      
+      $form = $this->createForm(new SmsAuctionsType, $sms_auctions);
       
       $request = $this->getRequest();
       if ('POST' === $request->getMethod()) {
         $form->bindRequest($request);
         if ($form->isValid()) {
-          $em->persist($sms);
+          $em->persist($sms_auctions->sms);
           $em->flush();
 
           $this->get('stoxs.sms_queue')->enqueueSms($sms);

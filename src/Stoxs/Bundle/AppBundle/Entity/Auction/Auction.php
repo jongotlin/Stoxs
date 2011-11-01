@@ -229,5 +229,10 @@ class Auction
   {
     $this->minimum_increment = $minimum_increment;
   }
+  
+  public function __toString()
+  {
+    return $this->getStopTime()->format('Y-m-d H:m:s');
+  }
 
 }
