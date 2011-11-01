@@ -2,6 +2,9 @@
 
 namespace Stoxs\Bundle\AppBundle\Entity;
 
+
+use Stoxs\Bundle\AppBundle\Entity\Auction\NullBid;
+
 class SmsAuctions
 {
   public $sms, $auctions;
@@ -18,9 +21,11 @@ class SmsAuctions
   
   public function updateUsers()
   {
-    $agents = $this->auctions->getAgents();
-    foreach ($agents as $agent) {
-      $sms->addRecipientUser($agent->addUser());
+    $bids = $this->auctions->getWinningBids();
+    foreach ($bids as $bid) {
+      if (!($bid instanceOf NullBid)) {
+        $sms->addRecipientUser($big->getAgent()->addUser());
+      }
     }
   }
 }
