@@ -19,4 +19,10 @@ class AuctionRepository extends EntityRepository
       setParameter('stop_time', new \DateTime())->
       getQuery()->execute();
   }
+  
+  public function findNextEndingAuction()
+  {
+    $auctions = $this->findAllActiveForBiddingAuctions();
+    return $auctions[0];
+  }
 }

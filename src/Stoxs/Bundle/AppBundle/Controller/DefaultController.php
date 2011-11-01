@@ -31,4 +31,20 @@ class DefaultController extends Controller
     {
       return array();
     }
+    
+    /**
+     * @Route("/current-bids", name="current_bids")
+     * @Template()
+     */
+    public function currentBidsAction()
+    {
+      
+      $em = $this->getDoctrine()->getEntityManager();
+      
+      $auction = $em->getRepository('StoxsAppBundle:Auction\Auction')->findNextEndingAuction();
+      
+      return array(
+        'auction' => $auction
+      );
+    }
 }

@@ -64,6 +64,11 @@ class Auction
     $this->processAgents();
   }
 
+  public function getAgents()
+  {
+    return $this->agents;
+  }
+  
   public function processAgents()
   {
     do 

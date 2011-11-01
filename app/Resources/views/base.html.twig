@@ -35,7 +35,9 @@
             <a class="brand" href="{{ path('start') }}">Stoxs.se</a>
             <ul class="nav">
               <li class="active"><a href="{{ path('start') }}">Start</a></li>
-              <li class="active"><a href="{{ path('how_it_works') }}">Hur funkar det?</a></li>
+              <li><a href="{{ path('how_it_works') }}">Hur funkar det?</a></li>
+              <li><a href="{{ path('current_bids') }}">Aktuella bud</a></li>
+              
               {% if is_granted("ROLE_ADMIN") %}
               <li><a href="{{ path('send_sms') }}">Skicka nytt sms</a></li>
               <li><a href="{{ path('new_auction') }}">Skapa ny auktion</a></li>

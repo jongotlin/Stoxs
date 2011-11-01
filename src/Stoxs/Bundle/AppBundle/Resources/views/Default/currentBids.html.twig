@@ -1,0 +1,24 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+<h1>Aktuella bud</h1>
+
+<p>Auktionen slutar {{ auction.stopTime|date("Y-m-d H:i:s") }}</p>
+
+<table>
+<thead>
+<tr>
+<th>Plats</th>
+<th>Bud</th>
+</tr>
+</thead>
+<tbody>
+{% for key, bid in auction.winningBids %}
+<tr>
+<td>{% if bid.agent is not null%}<b>{% endif %}{{ key + 1 }}{% if bid.agent is not null%}</b>{% endif %}</td>
+<td>{% if bid.agent is not null%}<b>{% endif %}{{ bid.amount }} kr{% if bid.agent is not null%}</b>{% endif %}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+{% endblock %}
