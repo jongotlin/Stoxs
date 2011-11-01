@@ -16,7 +16,9 @@ class DefaultController extends Controller
     {
 
       if (false !== $this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-        $content = $this->renderView('StoxsAppBundle:Default:loggedin.html.twig');
+        $current_auctions = $this->get('doctrine')->getRepository('StoxsAppBundle:Auction\Auction')->findAllActiveForBiddingAuctions();
+
+        $content = $this->renderView('StoxsAppBundle:Default:loggedin.html.twig', array('current_auction' => $current_auctions[0]));
       } else {
         $content = $this->renderView('StoxsAppBundle:Default:index.html.twig');
       }

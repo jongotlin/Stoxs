@@ -5,12 +5,19 @@
   <h1>Inloggad</h1>
   
   {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-    {% if app.user.hasActiveBid %}  
-      <p>Vestibulum id ligula porta felis euismod semper. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</p>
+    {% if app.user.isWinningAuction(current_auction) %}  
+      <p>Det går bra för dig!</p>
+      <p>Din budagent har hållt ställningarna sedan du senast var här, och du är fortfarande med i auktionen!</p>
       <p><a class="btn primary large" href="{{ path('agent_edit') }}">Ändra bud &raquo;</a></p>
+    {% elseif not app.user.isInAuction(current_auction) %}
+      <p>Du är inte med i månadens auktion.</p>
+      <p>Gå med i den här månadens auktion för att få våra marknadstips!</p>
+      <p><a class="btn primary large" href="{{ path('agent_new', {'id': current_auction.id}) }}">Lägg bud &raquo;</a></p>
     {% else %}
-      <p>Vestibulum id ligula porta felis euismod semper. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</p>
-      <p><a class="btn primary large" href="{{ path('agent_new') }}">Lägg bud &raquo;</a></p>
+      <p>Aj aj aj!</a>
+      <p>Du har blivit överbjuden. Din budagent har tappert försökt att försvara din plats i auktionen, men blev till slut överbjuden.
+      <p>Hoppet är inte helt ute, men om du vill vara säker på att få nästa månads marknadstips behöver du höja ditt maxbud eller sänka din minsta accepterbara position</p>
+      <p><a class="btn primary large" href="{{ path('agent_edit', {'id': app.user.agentForAuction(current_auction).id}) }}">Uppdatera budagenten &raquo;</a></p>
     {% endif %}
   {% endif %}
     

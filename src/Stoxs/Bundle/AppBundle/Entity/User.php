@@ -103,7 +103,38 @@ class User extends BaseUser implements MessagePartyInterface
         return $this->phone_number;
     }
     
+    public function isWinningAuction(Auction\Auction $auction)
+    {
+        $agent = $this->getAgentForAuction($auction);
+
+        if (!$agent)
+        {
+            return false;
+        }
+
+        return $auction->getBidPositionForAgent($agent) !== null;
+    }
+
+    public function isInAuction(Auction\Auction $auction)
+    {
+        $agent = $this->getAgentForAuction($auction);
+
+        return $agent !== null;
+    }
     
+    public function getAgentForAuction(Auction\Auction $auction)
+    {
+        foreach ($this->getAgents() as $agent)
+        {
+            if ($auction == $agent->getAuction())
+            {
+                return $agent;
+            }
+        }
+
+        return null;
+    }
+
     public function hasActiveBid()
     {
       return false;
