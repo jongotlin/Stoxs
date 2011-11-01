@@ -4,17 +4,20 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-    <!--
     <parameters>
-        <parameter key="stoxs_app.example.class">Stoxs\Bundle\AppBundle\Example</parameter>
+        <parameter key="stoxs.sms_queue.class">Stoxs\Bundle\AppBundle\Queue\SmsQueue</parameter>
+        <parameter key="stoxs.sms_sender.class">Stoxs\Bundle\AppBundle\Service\SmsSenderService</parameter>
     </parameters>
 
     <services>
-        <service id="stoxs_app.example" class="%stoxs_app.example.class%">
-            <argument type="service" id="service_id" />
-            <argument>plain_value</argument>
-            <argument>%parameter_name%</argument>
+        <service id="stoxs.sms_queue" class="%stoxs.sms_queue.class%">
+            <argument type="service" id="pheanstalk" />
         </service>
+
+        <service id="stoxs.sms_sender" class="%stoxs.sms_sender.class%">
+            <argument type="service" id="stoxs.sms_queue" />
+            <argument type="service" id="jgi_messy.message_center" />
+        </service>
+
     </services>
-    -->
 </container>

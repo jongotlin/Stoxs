@@ -7,17 +7,17 @@ parameters:
     fos_user.profile.form.type: stoxs_user_profile
 
 services:
-#    messy_error_log_provider:
-#        class: Messy\Provider\ErrorLogProvider
-#        tags:
-#          - { name: messy.provider, priority: 0 }
-    messy_mosms_provider:
-        class: Messy\Provider\MosmsProvider
-        arguments:
-          - "stoxs"
-          - "stoxs24hbc"
+    messy_error_log_provider:
+        class: Messy\Provider\ErrorLogProvider
         tags:
           - { name: messy.provider, priority: 0 }
+#    messy_mosms_provider:
+#        class: Messy\Provider\MosmsProvider
+#        arguments:
+#          - "stoxs"
+#          - "stoxs24hbc"
+#        tags:
+#          - { name: messy.provider, priority: 0 }
 
 framework:
     #esi:             ~
@@ -75,6 +75,8 @@ jms_security_extra:
     secure_controllers:  true
     secure_all_services: false
 
+drymek_pheanstalk: ~
+
 fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb'
     firewall_name: main
@@ -84,3 +86,14 @@ fos_user:
         form:
             type: stoxs_user_profile
             type: stoxs_user_registration
+
+code_meme_daemon:
+    daemons:
+        #an example of all the available options
+        sms_sender:
+            appName: smssender
+#            appDir: %kernel.root_dir%
+            appDescription: Sending SMSes all day long
+            logLocation: %kernel.logs_dir%/%kernel.environment%.smssender.log
+            appPidLocation: %kernel.cache_dir%/smssender/smssender.pid
+            sysMemoryLimit: 128M

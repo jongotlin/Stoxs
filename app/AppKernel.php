@@ -21,6 +21,8 @@ class AppKernel extends Kernel
             new Stoxs\Bundle\AppBundle\StoxsAppBundle(),
             new Stoxs\Bundle\UserBundle\StoxsUserBundle(),
             new JGI\Bundle\MessyBundle\JGIMessyBundle(),
+            new drymek\PheanstalkBundle\drymekPheanstalkBundle(),
+            new CodeMeme\Bundle\CodeMemeDaemonBundle\CodeMemeDaemonBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

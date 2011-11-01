@@ -2,6 +2,10 @@
 #    pattern:  /
 #    defaults: { _controller: AcmeDemoBundle:Welcome:index }
 
+_pheanstalk:
+    resource: "@drymekPheanstalkBundle/Resources/config/routing.yml"
+    prefix:   /_pheanstalk
+
 _demo_secured:
     resource: "@AcmeDemoBundle/Controller/SecuredController.php"
     type:     annotation

@@ -35,6 +35,7 @@ class SmsController extends Controller
           $em->persist($sms);
           $em->flush();
 
+          $this->get('stoxs.sms_queue')->enqueueSms($sms);
 //          $this->get('jgi_messy.message_center')->send($sms);
           
           return $this->redirect($this->generateUrl('send_sms_completed'));

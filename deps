@@ -70,3 +70,15 @@
 
 [messy]
     git=git://github.com/jongotlin/messy.git
+
+[Pheanstalk]
+    git=https://github.com/mrpoundsign/pheanstalk.git
+    target=/pheanstalk
+
+[drymekPheanstalkBundle]
+    git=https://github.com/drymek/PheanstalkBundle.git
+    target=/bundles/drymek/PheanstalkBundle
+
+[CodeMemeDaemonBundle]
+    git=http://github.com/CodeMeme/CodeMemeDaemonBundle.git
+    target=/bundles/CodeMeme/Bundle/CodeMemeDaemonBundle
