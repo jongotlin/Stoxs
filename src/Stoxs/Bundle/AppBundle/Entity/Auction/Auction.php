@@ -71,6 +71,8 @@ class Auction
   
   public function processAgents()
   {
+    $before_out = $this->getOutAgents();
+
     do 
     {
       $altered_at = $this->getAlteredAt();
@@ -80,6 +82,46 @@ class Auction
         $agent->actOnAuction($this);
       }
     } while ($altered_at != $this->getAlteredAt());
+
+    $after_out = $this->getOutAgents();
+
+    $new_out = array_diff($after_out, $before_out);
+    $new_in = array_diff($before_out, $after_out);
+
+    foreach ($new_out as $agent) 
+    {
+      $agent->notifyUserOut();
+    }
+
+    foreach ($new_in as $agent)
+    {
+      $agent->notifyUserIn();
+    }
+  }
+
+  public function getOutAgents()
+  {
+    $agents = $this->agents;
+    if (!is_array($agents))
+    {
+      $agents = $agents->toArray();
+    }
+
+    return array_diff($agents, $this->getInAgents());
+  }
+
+  public function getInAgents()
+  {
+    $in_agents = array();
+    foreach ($this->getWinningBids() as $bid)
+    {
+      if (!($bid instanceof NullBid))
+      {
+        $in_agents[] = $bid->getAgent();
+      }
+    }
+
+    return $in_agents;
   }
 
   public function getMinimumIncrement()

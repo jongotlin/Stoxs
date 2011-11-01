@@ -109,4 +109,20 @@ abstract class BaseAgent
   {
     return $this->id;
   }
+
+  public function notifyUserOut()
+  {
+    if ($this->user)
+    {
+      $this->user->notifyAgentOut($this);      
+    }
+  }
+
+  public function notifyUserIn()
+  {
+    if ($this->user)
+    {
+      $this->user->notifyAgentIn($this);      
+    }
+  }
 }

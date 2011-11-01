@@ -108,8 +108,33 @@ class User extends BaseUser implements MessagePartyInterface
     {
       return false;
     }
+
+    protected $agent_in_notifier;
+
+    protected $agent_out_notifier;
+
+    public function setAgentInNotifier($callable)
+    {
+        $this->agent_in_notifier = $callable;
+    }
+
+    public function setAgentOutNotifier($callable)
+    {
+        $this->agent_out_notifier = $callable;
+    }
     
+    public function notifyAgentIn(Auction\BaseAgent $agent)
+    {
+        $notifier = $this->agent_in_notifier;
+        call_user_func($notifier, $this, $agent);
+    }
     
+    public function notifyAgentOut(Auction\BaseAgent $agent)
+    {
+        $notifier = $this->agent_out_notifier;
+        call_user_func($notifier, $this, $agent);
+    }
+
     /**
      * @ORM\OneToMany(targetEntity="Sms", mappedBy="user") 
      */
