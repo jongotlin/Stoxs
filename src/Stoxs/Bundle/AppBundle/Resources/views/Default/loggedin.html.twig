@@ -5,7 +5,10 @@
   <h1>Inloggad</h1>
   
   {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-    {% if app.user.isWinningAuction(current_auction) %}  
+    {% if not current_auction %}
+      <p>Det finns ingen auktion att bjuda på just nu…</p>
+      <p>Kolla tillbaka snart så du kan få tillgång till nya markadstips till marknadspris!</p>
+    {% elseif app.user.isWinningAuction(current_auction) %}  
       <p>Det går bra för dig!</p>
       <p>Din budagent har hållt ställningarna sedan du senast var här, och du är fortfarande med i auktionen!</p>
       <p><a class="btn primary large" href="{{ path('agent_edit') }}">Ändra bud &raquo;</a></p>
