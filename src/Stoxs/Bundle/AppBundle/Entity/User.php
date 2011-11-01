@@ -119,8 +119,7 @@ class User extends BaseUser implements MessagePartyInterface
     {
       return $this->smses;
     }
-    
-    
+
     /**
      * @ORM\OneToMany(targetEntity="Stoxs\Bundle\AppBundle\Entity\Auction\BaseAgent", mappedBy="user") 
      */
@@ -129,5 +128,47 @@ class User extends BaseUser implements MessagePartyInterface
     public function getAgents()
     {
       return $this->agents;
+    }
+
+    /**
+     * Serializes the user.
+     *
+     * The serialized data have to contain the fields used by the equals method and the username.
+     *
+     * @return string
+     */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->password,
+            $this->salt,
+            $this->usernameCanonical,
+            $this->username,
+            $this->expired,
+            $this->locked,
+            $this->credentialsExpired,
+            $this->enabled,
+            $this->phone_number,
+        ));
+    }
+
+    /**
+     * Unserializes the user.
+     *
+     * @param string $serialized
+     */
+    public function unserialize($serialized)
+    {
+        list(
+            $this->password,
+            $this->salt,
+            $this->usernameCanonical,
+            $this->username,
+            $this->expired,
+            $this->locked,
+            $this->credentialsExpired,
+            $this->enabled,
+            $this->phone_number,
+        ) = unserialize($serialized);
     }
 }

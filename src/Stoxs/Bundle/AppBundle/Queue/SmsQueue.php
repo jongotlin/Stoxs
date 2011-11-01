@@ -54,6 +54,10 @@ class SmsQueue
       return false;
     }
 
-    return unserialize($job->getData());
+    $message = unserialize($job->getData());
+
+    $this->pheanstalk->delete($job);
+
+    return $message;
   }
 }

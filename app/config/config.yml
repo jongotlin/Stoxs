@@ -8,16 +8,30 @@ parameters:
 
 services:
     messy_error_log_provider:
-        class: Messy\Provider\ErrorLogProvider
-        tags:
-          - { name: messy.provider, priority: 0 }
-#    messy_mosms_provider:
-#        class: Messy\Provider\MosmsProvider
-#        arguments:
-#          - "stoxs"
-#          - "stoxs24hbc"
+        class: Messy\Provider\MonologProvider
+        arguments:
+          - @logger
+          - 200
+    messy_mosms_provider:
+        class: Messy\Provider\MosmsProvider
+        arguments:
+          - "stoxs"
+          - "stoxs24hbc"
 #        tags:
 #          - { name: messy.provider, priority: 0 }
+    messy_union_provider:
+        class: Messy\Provider\UnionProvider
+        arguments:
+#          - [ @messy_error_log_provider ]
+          - [ @messy_error_log_provider, @messy_mosms_provider]
+    messy_error_wrapping_provider:
+        class: Messy\Provider\ErrorWrappingProvider
+        arguments:
+          - @logger
+          - 500
+          - @messy_union_provider
+        tags:
+          - { name: messy.provider, priority: 0 }
 
 framework:
     #esi:             ~
