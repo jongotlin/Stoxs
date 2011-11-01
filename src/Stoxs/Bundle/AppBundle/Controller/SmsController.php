@@ -40,9 +40,9 @@ class SmsController extends Controller
       if ('POST' === $request->getMethod()) {
         $form->bindRequest($request);
         if ($form->isValid()) {
+          $sms_auctions->updateUsers();
           $em->persist($sms_auctions->sms);
           
-          $sms_auctions->updateUsers();
           
           $em->flush();
 
