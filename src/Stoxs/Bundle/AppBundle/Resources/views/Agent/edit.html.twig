@@ -1,12 +1,28 @@
-{% extends "::base.html.twig" %}
+{% extends "::with_left_menu.html.twig" %}
 
 {% block title -%}
-  Ändra bud
+  Lägg ett bud
 {%- endblock %}
 
-{% block body %}
+{% block colbody %}
 
 <h1>Ändra bud</h1>
+<p>Auktionen slutar {{ agent.auction.stopTime|date("Y-m-d H:i:s") }}</p>
+
+
+
+<form action="{{ path('agent_edit', {'id': agent.id }) }}" {{ form_enctype(form) }} method="POST">
+
+<fieldset>
+
+
+    {{ form_widget(form) }}
+    
+    <div class="actions">
+
+        <input type="submit" class="btn primary" value="Ändra bud" />
+    </div>
+</form>
 
 
 

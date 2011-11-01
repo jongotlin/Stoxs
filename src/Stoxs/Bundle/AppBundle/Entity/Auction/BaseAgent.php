@@ -4,6 +4,7 @@ namespace Stoxs\Bundle\AppBundle\Entity\Auction;
 
 use Doctrine\ORM\Mapping as ORM;
 use Stoxs\Bundle\AppBundle\Entity\User;
+use Stoxs\Bundle\AppBundle\Entity\Auction\AgentRepository;
 
 /**
  * @ORM\Entity
@@ -11,6 +12,7 @@ use Stoxs\Bundle\AppBundle\Entity\User;
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
  * @ORM\DiscriminatorMap({"placemax" = "PlaceMaximizingAgent", "pricemin" = "PriceMinimizingAgent"})
+ * @ORM\Entity(repositoryClass="Stoxs\Bundle\AppBundle\Entity\Auction\AgentRepository")
  */
 abstract class BaseAgent
 {
@@ -77,14 +79,34 @@ abstract class BaseAgent
   {
     return $this->max_price;
   }
+  
+  public function setMaxPrice($max_price)
+  {
+    $this->max_price = $max_price;
+  }
 
   public function getMinPosition()
   {
     return $this->min_position;
   }
+  
+  public function setMinPosition($min_position)
+  {
+    $this->min_position = $min_position;
+  }
 
   protected function get0IndexedMinPosition()
   {
     return $this->min_position - 1;
+  }
+  
+  public function getAuction()
+  {
+    return $this->auction;
+  }
+  
+  public function getId()
+  {
+    return $this->id;
   }
 }

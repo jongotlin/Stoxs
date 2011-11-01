@@ -9,9 +9,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Doctrine\ORM\Mapping as ORM;
 
 use Stoxs\Bundle\AppBundle\Entity\Auction\Auction;
-use Stoxs\Bundle\AppBundle\Entity\Auction\Agent;
+use Stoxs\Bundle\AppBundle\Entity\Auction\BaseAgent;
 use Stoxs\Bundle\AppBundle\Form\AgentFormModel;
+use Stoxs\Bundle\AppBundle\Form\AgentEditFormModel;
 use Stoxs\Bundle\AppBundle\Form\AgentType;
+use Stoxs\Bundle\AppBundle\Form\AgentEditType;
 
 class AgentController extends Controller
 {
@@ -54,7 +56,7 @@ class AgentController extends Controller
     if ('POST' === $request->getMethod()) {
       $form->bindRequest($request);
       if ($form->isValid()) {
-        $em->persist($agent_form_model->createAgent());
+        $agent_form_model->createAgent();
         $em->flush();
         
         return $this->redirect($this->generateUrl('new_agent_saved'));
@@ -78,12 +80,58 @@ class AgentController extends Controller
   }
 
   /**
-   * @Route("/agent/edit", name="agent_edit")
+   * @Route("/agent/edit", name="agent_edit_select")
    * @Template()
    */
-  public function editAction()
+  public function editSelectAction()
   {
-      return array();
+      $em = $this->getDoctrine()->getEntityManager();
+
+      $agents = $em->getRepository('StoxsAppBundle:Auction\BaseAgent')->findForEdit();
+      
+      return array(
+        'agents' => $agents
+      );
   }
 
+  /**
+   * @Route("/agent/edit/{id}", name="agent_edit", requirements={ "id"="\d+" })
+   * @Template()
+   * @ParamConverter("auction", class="StoxsAppBundle:Auction\BaseAgent")
+   */
+  public function editAction(BaseAgent $agent)
+  {
+    $em = $this->getDoctrine()->getEntityManager();
+
+    $agent_edit_form_model = new AgentEditFormModel;
+    $agent_edit_form_model->agent = $agent;
+    //echo $agent->getMaxPrice();
+    $form = $this->createForm(new AgentEditType, $agent_edit_form_model);
+    
+    $request = $this->getRequest();
+    if ('POST' === $request->getMethod()) {
+      $form->bindRequest($request);
+      if ($form->isValid()) {
+        $em->persist($agent_edit_form_model->agent);
+        $agent_edit_form_model->agent->getAuction()->processAgents();
+        $em->flush();
+        
+        return $this->redirect($this->generateUrl('edit_agent_saved'));
+      }
+    }
+    
+    return array(
+      'agent' => $agent,
+      'form' => $form->createView()
+    );
+  }
+  
+  /**
+   * @Route("/agent/edit-saved", name="edit_agent_saved")
+   * @Template()
+   */
+  public function editSavedAction()
+  {
+    return array();
+  }
 }

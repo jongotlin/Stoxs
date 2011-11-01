@@ -1,0 +1,18 @@
+{% extends "::with_left_menu.html.twig" %}
+
+{% block title -%}
+  Ändra bud
+{%- endblock %}
+
+{% block colbody %}
+
+<h1>Ändra bud</h1>
+
+
+<ul>
+{% for agent in agents %}
+<li><a href="{{ path('agent_edit', {'id': agent.id} ) }}">Auktion som slutar {{ agent.auction.stopTime|date("Y-m-d H:i:s") }}</a></li>
+{% endfor %}
+</ul>
+
+{% endblock %}

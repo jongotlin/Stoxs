@@ -10,7 +10,7 @@ class AgentFormModel
   
   public $max_price, $min_position, $discr;
   
-  public $acuntion, $agent, $user;
+  public $auction, $agent, $user;
 
   public function createAgent()
   {
@@ -19,7 +19,7 @@ class AgentFormModel
     } else {
       $agent = new PriceMinimizingAgent($this->max_price, $this->min_position);
     }
-    $agent->setAuction($this->auction);
+    $this->auction->addAgent($agent);
     $agent->setUser($this->user);
     return $agent;
   }

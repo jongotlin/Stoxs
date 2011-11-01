@@ -16,7 +16,11 @@
 <fieldset>
 
 
-    {{ form_widget(form) }}
+{{ form_errors(form) }}
+
+Jag vill betala max {{ form_widget(form.max_price, { 'attr': {'class': 'mini'}}) }} kr för minst position {{ form_widget(form.min_position, { 'attr': {'class': 'mini'}}) }} och vill {{ form_widget(form.discr) }}
+
+{{ form_rest(form) }}
     
     <div class="actions">
 
