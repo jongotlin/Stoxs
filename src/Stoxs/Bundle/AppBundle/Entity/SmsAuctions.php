@@ -15,4 +15,12 @@ class SmsAuctions
   {
     $this->sms->setBody($body);
   }
+  
+  public function updateUsers()
+  {
+    $agents = $this->auctions->getAgents();
+    foreach ($agents as $agent) {
+      $sms->addRecipientUser($agent->addUser());
+    }
+  }
 }

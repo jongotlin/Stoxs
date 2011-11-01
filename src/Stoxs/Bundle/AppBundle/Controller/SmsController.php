@@ -27,7 +27,6 @@ class SmsController extends Controller
       
       $sms = new Sms;
       $sms->setUser($user);
-      $sms->addRecipientUser($user);
       
       $sms_auctions = new SmsAuctions;
       $sms_auctions->sms = $sms;
@@ -42,6 +41,9 @@ class SmsController extends Controller
         $form->bindRequest($request);
         if ($form->isValid()) {
           $em->persist($sms_auctions->sms);
+          
+          $sms_auctions->updateUsers();
+          
           $em->flush();
 
           $this->get('stoxs.sms_queue')->enqueueSms($sms);
