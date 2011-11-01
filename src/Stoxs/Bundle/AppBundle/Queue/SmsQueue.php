@@ -49,6 +49,11 @@ class SmsQueue
       ->ignore('default')
       ->reserve();
 
+    if (!$job)
+    {
+      return false;
+    }
+
     return unserialize($job->getData());
   }
 }

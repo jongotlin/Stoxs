@@ -22,6 +22,9 @@ class SmsSenderService
   public function run()
   {
     $message = $this->queue->dequeueBasicMessage();
-    $this->message_center->send($message);
+    if ($message)
+    {
+      $this->message_center->send($message);      
+    }
   }
 }
