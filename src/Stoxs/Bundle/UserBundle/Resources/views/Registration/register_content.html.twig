@@ -5,7 +5,49 @@
 <fieldset>
 
 
-    {{ form_widget(form) }}
+<div class="clearfix">
+  {{ form_label(form.username) }}
+  <div class="input">
+      {{ form_widget(form.username, {'attr': {'class': 'xlarge'}}) }}
+  </div>
+</div>
+
+<div class="clearfix">
+  {{ form_label(form.email) }}
+  <div class="input">
+      {{ form_widget(form.email, {'attr': {'class': 'xlarge'}}) }}
+  </div>
+</div>
+
+
+<div class="clearfix">
+  <label>Personnummer</label>
+  <div class="input">
+      {{ form_widget(form.ssn, {'attr': {'class': 'xlarge'}}) }}
+  </div>
+</div>
+
+<div class="clearfix">
+  <label>Mobilnummer</label>
+  <div class="input">
+      {{ form_widget(form.phoneNumber, {'attr': {'class': 'xlarge'}}) }}
+  </div>
+</div>
+
+<div class="clearfix">
+  {{ form_label(form.plainPassword.first) }}
+  <div class="input">
+      {{ form_widget(form.plainPassword.first, {'attr': {'class': 'xlarge'}}) }}
+  </div>
+</div>
+
+<div class="clearfix">
+  {{ form_label(form.plainPassword.second) }}
+  <div class="input">
+      {{ form_widget(form.plainPassword.second, {'attr': {'class': 'xlarge'}}) }}
+  </div>
+</div>
+    {{ form_rest(form) }}
     
     <div class="actions">
 
