@@ -11,12 +11,13 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 */
 class PersistedAuctionTests extends WebTestCase
 {
-/*
+
   public function testStuff()
   {
-    $client = static::createClient();
+/*    $client = static::createClient();
 
     $auction = new Auction\Auction(5, 50);
+    $auction->setStopTime(new \DateTime('+2 days'));
 
     $agent1 = new Auction\PriceMinimizingAgent(1300, 3);
     $agent2 = new Auction\PriceMinimizingAgent(2000, 1);
@@ -57,13 +58,13 @@ class PersistedAuctionTests extends WebTestCase
 
     $em->persist($auction);
     $em->flush();
-
+*/
   }
-  */
+  
 
   public function testOtherStuff()
   {
-    $client = static::createClient();
+/*    $client = static::createClient();
 
     $container = $client->getContainer();
 
@@ -80,8 +81,31 @@ class PersistedAuctionTests extends WebTestCase
 
     $this->debugBidList($auction);
 
+    $em->flush();*/
+  }
+
+  public function testYetMoreOtherStuff()
+  {
+    $client = static::createClient();
+
+    $container = $client->getContainer();
+
+    $em = $container->get('doctrine')->getEntityManager();
+
+    $auction = $em->getRepository('StoxsAppBundle:Auction\Auction')->find(2);
+    $user = $em->getRepository('StoxsAppBundle:User')->find(3);
+    $this->debugBidList($auction);
+
+    $agent10 = new Auction\PriceMinimizingAgent(12000, 5);
+    $agent10->setUser($user);
+
+    $auction->addAgent($agent10);
+
+    $this->debugBidList($auction);
+
     $em->flush();
   }
+
 
   public function debugBidList($auction)
   {
