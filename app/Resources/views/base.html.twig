@@ -8,7 +8,7 @@
         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
         
         {% stylesheets output='css/compressed.css'
-          '@StoxsAppBundle/Resources/public/css/bootstrap/bootstrap.css' 
+          '@StoxsAppBundle/Resources/public/bootstrap/css/bootstrap.min.css' 
         %}
 
             <link rel="stylesheet" href="{{ asset_url }}" type="text/css" media="screen" />
@@ -29,41 +29,48 @@
         {% block javascripts %}{% endblock %}
     </head>
     <body>
-      <div class="topbar">
-        <div class="fill">
-          <div class="container">
-            <a class="brand" href="{{ path('start') }}">Stoxs.se</a>
-            <ul class="nav">
-              <li class="active"><a href="{{ path('start') }}">Start</a></li>
-              <li><a href="{{ path('how_it_works') }}">Hur funkar det?</a></li>
-              <li><a href="{{ path('current_bids') }}">Aktuella bud</a></li>
-              
-              {% if is_granted("ROLE_ADMIN") %}
-              <li><a href="{{ path('send_sms') }}">Skicka nytt sms</a></li>
-              <li><a href="{{ path('new_auction') }}">Skapa ny auktion</a></li>
-              {% endif %}
-            </ul>
-            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-            <p class="pull-right">
-                {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
-                <a href="{{ path('fos_user_security_logout') }}">
-                    {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
-                </a>
-            </p>
-            {% else %}
-            
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
 
-                <form action="{{ path("fos_user_security_check") }}" method="post" class="pull-right">
-                    <input class="input-small" type="text" id="username" name="_username"  placeholder="{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}" />
-                    <input class="input-small" type="password" id="password" name="_password" placeholder="{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}" />
-                    <button class="btn" type="submit" id="_submit" name="_submit">{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}</button>
-                </form>
-            
-            {% endif %}
-          </div>
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <div class="nav-collapse">
+
+                        <a class="brand" href="{{ path('start') }}">Stoxs.se</a>
+                        <ul class="nav">
+                            <li class="active"><a href="{{ path('start') }}">Start</a></li>
+                            <li><a href="{{ path('how_it_works') }}">Hur funkar det?</a></li>
+                            <li><a href="{{ path('current_bids') }}">Aktuella bud</a></li>
+
+                            {% if is_granted("ROLE_ADMIN") %}
+                            <li><a href="{{ path('send_sms') }}">Skicka nytt sms</a></li>
+                            <li><a href="{{ path('new_auction') }}">Skapa ny auktion</a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                        <p class="pull-right">
+                            {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
+                            <a href="{{ path('fos_user_security_logout') }}">
+                                {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+                            </a>
+                        </p>
+                        {% else %}
+
+
+                        <form action="{{ path("fos_user_security_check") }}" method="post" class="navbar-search pull-right">
+                            <input class="input-small" type="text" id="username" name="_username"  placeholder="{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}" />
+                            <input class="input-small" type="password" id="password" name="_password" placeholder="{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}" />
+                            <button class="btn" type="submit" id="_submit" name="_submit">{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}</button>
+                        </form>
+                        {% endif %}
+                </div>
+            </div>
         </div>
-      </div>
-      
       
       <div class="container">
         
